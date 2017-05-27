@@ -1,0 +1,7 @@
+name: CommandManager
+version: 1.0.0
+main: me.diax.comportment.skycube.Main
+prefix: CommandManager
+authors: [Comportment]
+description: A skyblock spinoff.
+website: github.com/Comportment/CommandManager
