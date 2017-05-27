@@ -16,7 +16,9 @@
 
 package me.diax.comportment.skycube.island;
 
+import me.diax.comportment.skycube.Main;
 import org.bukkit.Chunk;
+import org.bukkit.Server;
 import org.bukkit.entity.Player;
 
 import java.util.HashSet;
@@ -31,24 +33,38 @@ import java.util.stream.Collectors;
  */
 public class IslandManager {
 
-    private static final Set<SkyCubeIsland> islands = new HashSet<>();
+    private final Set<SkyCubeIsland> islands;
+    private final Main plugin;
 
-    public static SkyCubeIsland getIslandOwnedBy(Player owner) {
+    public IslandManager(Main plugin) {
+        this.plugin = plugin;
+        this.islands = new HashSet<>();
+    }
+
+    public IslandManager(Main plugin, Set<SkyCubeIsland> islands) {
+        this.plugin = plugin;
+        this.islands = islands;
+    }
+
+    public SkyCubeIsland getIslandOwnedBy(Player owner) {
         return getIslands().stream().filter(sci -> sci.getOwner().equals(owner)).findAny().orElse(null);
     }
 
-    public static Set<SkyCubeIsland> getIslandsContaining(Player player) {
-        Set<SkyCubeIsland> islands = new HashSet<>();
-        islands.addAll(getIslands().stream().filter(sci -> sci.getMembers().contains(player)).collect(Collectors.toSet()));
-        islands.add(getIslandOwnedBy(player));
-        return islands;
+    public SkyCubeIsland getIslandContaining(Player player) {
+        return getIslands().stream().filter(sci -> sci.getMembers().contains(player)).findAny().orElse(getIslandOwnedBy(player));
+
     }
 
-    public static Set<Chunk> getUsedChunks() {
+    public Set<Chunk> getUsedChunks() {
         return getIslands().stream().map(SkyCubeIsland::getChunk).collect(Collectors.toSet());
     }
 
-    public static Set<SkyCubeIsland> getIslands() {
+    public Set<SkyCubeIsland> getIslands() {
         return islands;
+    }
+
+    public boolean assignIslandTo(Player player) {
+        plugin.getServer().getWorld("");
+        return false;
     }
 }

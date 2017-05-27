@@ -17,6 +17,7 @@
 package me.diax.comportment.skycube.island;
 
 import org.bukkit.Chunk;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import java.util.HashSet;
@@ -34,9 +35,11 @@ public class SkyCubeIsland {
     private final Player owner;
     private Set<Player> members;
     private long score;
+    private Location spawn;
 
     public SkyCubeIsland(Chunk chunk, Player owner) {
         this.chunk = chunk;
+        this.spawn = chunk.getBlock(6, 6, 64).getLocation();
         this.owner = owner;
         this.members = new HashSet<>();
         this.score = 0;
@@ -44,6 +47,7 @@ public class SkyCubeIsland {
 
     public SkyCubeIsland(Chunk chunk, Player owner, Set<Player> allies) {
         this.chunk = chunk;
+        this.spawn = chunk.getBlock(6, 6, 64).getLocation();
         this.owner = owner;
         this.members = allies;
         this.score = 0;
@@ -51,6 +55,7 @@ public class SkyCubeIsland {
 
     public SkyCubeIsland(Chunk chunk, Player owner, long score) {
         this.chunk = chunk;
+        this.spawn = chunk.getBlock(6, 6, 64).getLocation();
         this.owner = owner;
         this.members = new HashSet<>();
         this.score = score;
@@ -58,6 +63,7 @@ public class SkyCubeIsland {
 
     public SkyCubeIsland(Chunk chunk, Player owner, Set<Player> allies, long score) {
         this.chunk = chunk;
+        this.spawn = chunk.getBlock(6, 6, 64).getLocation();
         this.owner = owner;
         this.members = allies;
         this.score = score;
@@ -99,6 +105,10 @@ public class SkyCubeIsland {
         members = new HashSet<>();
     }
 
+    public boolean hasPlayer(Player player) {
+        return this.getOwner().equals(player) || this.getMembers().contains(player);
+    }
+
     public Player getOwner() {
         return owner;
     }
@@ -113,5 +123,13 @@ public class SkyCubeIsland {
 
     public Chunk getChunk() {
         return chunk;
+    }
+
+    public void setSpawn(Location spawn) {
+        this.spawn = spawn;
+    }
+
+    public Location getSpawn() {
+        return spawn;
     }
 }

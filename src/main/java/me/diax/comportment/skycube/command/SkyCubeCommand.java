@@ -16,11 +16,15 @@
 
 package me.diax.comportment.skycube.command;
 
+import org.bukkit.entity.Player;
+
 /**
- * Created by Comportment at 16:51 on 27/05/17
+ * Created by Comportment at 17:52 on 27/05/17
  * https://github.com/Comportment | comportment@diax.me
  *
  * @author Comportment
  */
-public class CommandManager {
+public abstract class SkyCubeCommand {
+
+    public SkyCubeCommand(Player player, String string){}
 }

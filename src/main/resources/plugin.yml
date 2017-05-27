@@ -1,7 +1,12 @@
-name: CommandManager
+name: HomeCommand
 version: 1.0.0
 main: me.diax.comportment.skycube.Main
-prefix: CommandManager
+prefix: HomeCommand
 authors: [Comportment]
 description: A skyblock spinoff.
-website: github.com/Comportment/CommandManager
+website: github.com/Comportment/SkyCube
+
+commands:
+  skycube:
+    description: The base skycube command.
+    aliases: [sc]

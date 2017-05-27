@@ -16,10 +16,11 @@
 
 package me.diax.comportment.skycube;
 
-import org.bukkit.event.Listener;
+import me.diax.comportment.skycube.command.SkyCubeCommandExecutor;
+import me.diax.comportment.skycube.island.IslandManager;
+import org.bukkit.WorldCreator;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.Arrays;
 import java.util.logging.Logger;
 
 /**
@@ -31,25 +32,28 @@ import java.util.logging.Logger;
 public final class Main extends JavaPlugin {
 
     private final Logger logger = this.getLogger();
+    private static IslandManager manager;
 
     @Override
     public void onEnable() {
-        logger.info("CommandManager enabling...");
-        if (this.getServer().getWorlds().stream().noneMatch(world -> world.getName().equals("CommandManager"))) {
-            //Generate world
+        logger.info("SkyCube enabling...");
+        this.getCommand("skycube").setExecutor(new SkyCubeCommandExecutor());
+        if (this.getServer().getWorld("SkyCube") == null) {
+            manager = new IslandManager(this);
         } else {
-            //Load in stuff
+            this.getServer().createWorld(new WorldCreator("SkyCube"));
+            manager = new IslandManager(this);
         }
-        logger.info("CommandManager has been enabled.");
+        logger.info("SkyCube has been enabled.");
     }
 
     @Override
     public void onDisable() {
-        logger.info("CommandManager disabling...");
-        logger.info("CommandManager has been disabled.");
+        logger.info("SkyCube disabling...");
+        logger.info("SkyCube has been disabled.");
     }
 
-    public void registerEvents(Listener... listeners) {
-        Arrays.stream(listeners).forEach(listener -> this.getServer().getPluginManager().registerEvents(listener, this));
+    public static IslandManager getManager() {
+        return manager;
     }
 }
